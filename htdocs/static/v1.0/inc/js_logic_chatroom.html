@@ -1,0 +1,94 @@
+<script>
+(function(){
+var AliasSet = $.__ROOT__.ALIAS_SET;
+
+var platform = AliasSet.PLATFORM;
+var app = AliasSet.APP;
+var project = AliasSet.PROJECT;
+var module = AliasSet.MODULE;
+var feature = AliasSet.FEATURE;
+var page = AliasSet.PAGE;
+
+var debug = $.__ROOT__.DEBUG;
+var __conf__ = window.__CONFIG || {};
+
+var requires = [
+    "logic/chatroom/main"
+];
+
+var sea_callback = function(){
+    var args = arguments;
+    var size = args.length;
+
+    if(size === 0){
+        return ;
+    }
+
+    var main = args[0];
+
+    main.init($.extend({
+        "alias": {
+            "platform": platform,
+            "app": app,
+            "project": project,
+            "module": module,
+            "feature": feature,
+            "page": page
+        },
+        "debug": debug
+    }, __conf__));
+
+    if(size > 1){
+        var logic = null;
+
+        for(var i = 1; i < size; i++){
+            logic = args[i];
+
+            if(logic && ("connect" in logic)){
+                logic.connect(main);
+            }
+        }
+    }
+};
+
+var bridge = {
+    // "feature": {
+    //     "page": "..."
+    // }
+    "chatroom": {
+        "server": "logic/chatroom/server",
+        "client": "logic/chatroom/client"
+    }
+};
+
+var nslookup = function(findObj, keys){
+    var obj = null;
+    var key = keys.shift(); 
+
+    if(key){
+        if(key in findObj){
+            obj = findObj[key] || null;
+
+            if(obj){
+                if(Object.prototype.toString.call(obj) === "[object String]"){
+                    return obj;
+                }
+                return nslookup(obj, keys);
+            }
+        }else{
+            return nslookup(findObj, keys);
+        }
+    }
+
+    return null;
+};
+
+var requireLogicFile = nslookup(bridge, [feature, page]);
+
+if(requireLogicFile){
+    requires.push(requireLogicFile);
+}
+
+seajs.use(requires, sea_callback);
+})();
+</script>

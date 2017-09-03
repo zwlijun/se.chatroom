@@ -1,0 +1,259 @@
+article{
+	width: 90%;
+	margin: 0 auto;
+	margin-top: .45rem;
+	font-size: .18rem;
+}
+aside{
+	width: 5.25rem;
+	max-width: 5.25rem;
+}
+aside fieldset{
+	padding: .20rem;
+	display: block;
+	border: 1px solid #d7d7d7;
+}
+aside legend{
+	display: block;
+	margin-left: .32rem;
+	padding: 0 .16rem;
+}
+aside .cform-item{
+	height: .72rem;
+}
+aside .cform-item span{
+	display: block;
+	width: 1.15rem;
+}
+aside .cform-item input{
+	width: 3.60rem;
+	height: .42rem;
+	font-size: .18rem;
+}
+aside .cform-item .button{
+	width: 1.86rem;
+	height: .42rem;
+	font-size: .18rem;
+}
+aside .chatrooms{
+	width: 5.25rem;
+	max-width: 5.25rem;
+	border: 1px solid #d7d7d7;
+}
+aside figure{
+	background-color: #f8f8f8;
+}
+aside figcaption{
+	height: .56rem;
+	background-color: #e8e8e8;
+}
+aside figcaption span{
+	display: block;
+	margin-left: .12rem;
+	font-size: .22rem;
+}
+aside figcaption i{
+	display: block;
+	font-style: normal;
+	margin-right: .12rem;
+	font-size: .28rem;
+}
+aside figcaption i:before{
+	content: "\e641";
+}
+aside figcaption.unfold i:before{
+	content: "\e640";
+}
+aside figcaption ~ ul{
+	display: none;
+	list-style: none;
+}
+aside figcaption.unfold ~ ul{
+	display: block;
+}
+aside li{
+	height: .48rem;
+	font-size: .16rem;
+	border-top: 1px solid #dedede;
+}
+aside li.on{
+	background-color: rgba(255, 255, 153, 0.35);
+}
+aside li span{
+	margin-left: .12rem;
+	display: block;
+}
+aside li cite,
+aside li i,
+aside li b{
+	font-weight: normal;
+	font-style: normal;
+}
+aside li cite{
+	margin-right: .06rem;
+}
+aside li code{
+	margin-right: .12rem;
+	display: block;
+	height: .28rem;
+	width: .64rem;
+	background-color: #00c102;
+	border-radius: .06rem;
+	color: #fff;
+}
+aside li code.exit{
+	background-color: #e60000;
+}
+aside .no-rooms{
+	height: 2.40rem;
+    font-size: .32rem;
+}
+
+.mainbody{
+	border: 1px solid #d7d7d7;
+	-webkit-flex: 1;
+	   -moz-flex: 1;
+	    -ms-flex: 1;
+	    	flex: 1;
+	margin-left: .15rem;
+}
+
+.chatroom-message{
+	width: 100%;
+	height: 4.20rem;
+	max-height: 4.20rem;
+	overflow: hidden;
+	overflow-y: auto;
+}
+.chatroom-message > div{
+	padding-bottom: .36rem;
+}
+.chatroom-footer{
+	width: 100%;
+}
+.chatroom-iconbar{
+	height: .36rem;
+	background-color: #f0f0f0;
+	border-top: 1px solid #d7d7d7;
+	border-bottom: 1px solid #d7d7d7;
+}
+.chatroom-input{
+	width: 100%;
+}
+.chatroom-input textarea{
+	display: block;
+	-webkit-flex: 1;
+	   -moz-flex: 1;
+	    -ms-flex: 1;
+	    	flex: 1;
+	padding: .08rem;
+	border: 0;
+	border: none;
+	outline: 0;
+	outline: none;
+	height: 1.28rem;
+}
+.chatroom-funcbar{
+	height: .48rem;
+	border-top: 1px solid #d7d7d7;
+}
+.chatroom-funcbar .button{
+	margin-right: .12rem;
+}
+
+.message{
+	width: 90%;
+	margin: 0 auto;
+	margin-top: .24rem;
+	color: #333;
+}
+.message .msg-avator{
+	display: block;
+	font-style: normal;
+	width: .56rem;
+	height: .56rem;
+	border-radius: 100%;
+	background-color: #f0f0f0;
+	position: relative;
+}
+.message .msg-data{
+	-webkit-flex: 1;
+	   -moz-flex: 1;
+	    -ms-flex: 1;
+	    	flex: 1;
+	margin-left: .16rem;
+}
+.message .msg-nickname{
+	
+}
+.message .msg-nickname h2{
+	font-size: .13rem;
+	font-weight: normal;
+}
+.message .msg-nickname time{
+	font-size: .12rem;
+	color: #999;
+}
+.message .msg-content{
+	margin-top: .05rem;
+	background-color: #f0f0f0;
+	padding: .12rem;
+	border-radius: .11rem;
+	position: relative;
+	font-size: .14rem;
+	line-height: 1.3;
+	display: inline-block;
+	min-height: .16rem;
+}
+.message .msg-content:before{
+	content: "\e68c";
+	display: block;
+	width: .12rem;
+	height: .12rem;
+	color: #f0f0f0;
+	background-color: transparent;
+	position: absolute;
+	left: -0.14rem;
+	top: 0;
+	font-size: .20rem;
+}
+.message.self .msg-data{
+	margin-left: 0;
+	margin-right: .16rem;
+	text-align: right;
+}
+.message.self .msg-content{
+
+}
+.message.self .msg-content:before{
+	content: "\e68d";
+	left: initial;
+	right: -.06rem;
+}
+
+.message.tips > span{
+	background: #d7d7d7;
+    padding: .05rem .24rem;
+    border-radius: .80rem;
+}
+
+.chatroom-funcbar{
+	background-color: #f8f8f8;
+}
+
+.chatroom .mod-layerbox-content{
+	font-size: .22rem;
+}
+
+.joinform{}
+.joinform input[type="text"]{
+	width: 65%;
+    height: .48rem;
+    font-size: .20rem;
+    margin: .08rem 0; 
+}
+
+
+
+
+

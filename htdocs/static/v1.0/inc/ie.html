@@ -1,0 +1,202 @@
+<script>
+var IECompatible = (function(){
+    var _importTimer = null;
+    var _loadTimer = null;
+    var _ver = window["SE_BUILDER_STATIC_VERSION"] || "basic";
+    var _compatible = {
+        hasClass: function(dom, className){
+            if(!dom){
+                return false;
+            }
+
+            var cls = dom.className || "";
+
+            if(!cls){
+                return false;
+            }
+
+            var items = cls.split(/[\s]+/);
+            var size = items.length;
+
+            for(var i = 0; i < size; i++){
+                if(items[i] === className){
+                    return true;
+                }
+            }
+
+            return false;
+        },
+        addClass: function(dom, className){
+            if(!dom){
+                return _compatible;
+            }
+
+            var cls = dom.className || "";
+            var src_items = cls.split(/[\s]+/);
+            var in_items = (className || "").split(/[\s]+/);
+            var items = src_items.concat(in_items);
+            var size = items.length;
+            var tmp = [];
+            var checker = {};
+            var item = null;
+
+            for(var i = 0; i < size; i++){
+                item = items[i];
+
+                if(!item){
+                    continue;
+                }
+
+                if(!(item in checker)){
+                    tmp.push(item);
+                    checker[item] = 1;
+                }
+            }
+            
+            dom.className = tmp.join(" ");
+
+            return _compatible;
+        },
+        removeClass: function(dom, className){
+            if(!dom){
+                return _compatible;
+            }
+
+            if(undefined === className || null === className){
+                dom.className = "";
+
+                return _compatible;
+            }
+
+            var cls = dom.className || "";
+            var src_items = cls.split(/[\s]+/);
+            var in_items = (className || "").split(/[\s]+/);
+            var src_size = src_items.length;
+            var in_size = in_items.length;
+            var tmp = [];
+            var checker = {};
+            var item = null;
+
+            for(var i = 0; i < in_size; i++){
+                item = in_items[i];
+
+                if(!item){
+                    continue;
+                }
+    
+                checker[item] = 1;
+            }
+
+            for(var j = 0; j < src_size; j++){
+                item = src_items[j];
+
+                if(!item){
+                    continue;
+                }
+
+                if(!(item in checker)){
+                    tmp.push(item);
+                }
+            }
+            
+            dom.className = tmp.join(" ");
+
+            return _compatible;
+        },
+        ie: function(){
+            var ua = navigator.userAgent;
+            var ie = /MSIE (\d+)/i;
+            var result = null;
+            var version = -1;
+
+            if(null !== (result = ie.exec(ua))){
+                version = Number(result[1]);
+            }
+
+            return version;
+        },
+        importLink: function(){
+            if(_compatible.ie() <= 0 || _compatible.ie() >= 10){
+                return _compatible;
+            }
+
+            var __head__ = document.getElementsByTagName('head');
+
+            if(_importTimer){
+                clearTimeout(_importTimer);
+                _importTimer = null;
+            }
+
+            if(__head__.length > 0){
+                var link  = document.createElement("link");
+                link.rel  = "stylesheet";
+                link.type = "text/css";
+                link.href = "/static/" + _ver + "/src/css/lib/compatible/ie.css";
+
+                __head__[0].appendChild(link);
+
+                _compatible.importScript();
+            }else{
+                _importTimer = setTimeout(function(){
+                    _compatible.importLink();
+                }, 0)
+            }
+
+            return _compatible;
+        },
+        importScript: function(){
+            if(!_compatible.rem.supported()){
+                _compatible.loadScript("/static/" + _ver + "/src/js/lib/extra/rem/r1.3.4/rem.js");
+                _compatible.loadScript("/static/" + _ver + "/src/js/lib/extra/html5/r3.7.3/html5shiv.js");
+            }
+        },
+        loadScript: function(_src){
+            var __head__ = document.getElementsByTagName('head');
+
+            if(_loadTimer){
+                clearTimeout(_loadTimer);
+                _loadTimer = null;
+            }
+
+            if(__head__.length > 0){
+                var script  = document.createElement("script");
+
+                script.type = "text/javascript";
+                script.src = _src;
+
+                __head__[0].appendChild(script);
+            }else{
+                _loadTimer = setTimeout(function(){
+                    _compatible.loadScript(_src);
+                }, 0)
+            }
+        },
+        compatible: function(){
+            var __docroot__ = document.documentElement;
+            var version = -1;
+
+            if((version = _compatible.ie()) > -1){
+                _compatible.addClass(__docroot__, "ie ie" + version + (version < 10 ? " devil-browser" : ""));
+            }
+
+            if(_compatible.rem.supported()){
+                _compatible.addClass(__docroot__, "rem-yes");
+            }else{
+                _compatible.addClass(__docroot__, "rem-no");
+            }
+
+            return _compatible;
+        },
+        rem: {
+            supported: function(){
+                var div = document.createElement( 'div' );
+                    div.style.cssText = 'font-size: 1rem;';
+
+                return (/rem/).test(div.style.fontSize);
+            }
+        }
+    };
+
+    return _compatible;
+})().importLink().compatible();
+</script>

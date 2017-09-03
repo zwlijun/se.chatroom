@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html data-page-alias="platform.app.project.module.chatroom.client"<!--#include virtual="/static/v1.0/inc/rem_dattr.html"-->>
+<head>
+<!--#include virtual="/static/v1.0/inc/meta.html"-->
+<!--#include virtual="/static/v1.0/inc/rem.html"-->
+<title>SE生活 - 聊天室</title>
+<!--#include virtual="/static/v1.0/inc/css_common_gm.html"-->
+<!--#include virtual="/static/v1.0/inc/css_chatroom.html"-->
+</head>
+<body>
+<article class="flexbox stretch justify">
+  <aside>
+    <script type="text/template" id="tpl_channels">
+    <~
+    var __has = false;
+    for(var name in channels){
+    var rooms = channels[name];
+    var size = rooms.length;
+    var room = null;
+
+    __has = true;
+    ~>  
+    <figure>
+        <figcaption class="flexbox middle justify unfold" data-action-click="chatroom://unfold">
+          <span><~=name~></span>
+          <i class="icofont"></i>
+        </figcaption>
+        <ul>
+          <~
+          for(var i = 0; i < size; i++){
+          room = rooms[i];
+          ~>
+          <li class="flexbox middle justify" id="room_<~=room.id~>" data-cache="<~=room.id~>,<~=room.name~>,<~=room.secret~>" data-action-click="chatroom://change#<~=room.id~>,<~=room.name~>,<~=room.secret~>">
+            <span><cite>[<i id="room_<~=room.id~>_users"><~=room.count~></i>/<b><~=room.maxusers~></b>]</cite><~=room.name~></span>
+            <code class="flexbox middle center" data-action-click="chatroom://join#<~=room.id~>,<~=room.name~>,<~=room.secret~>">加入</code>
+          </li>
+          <~}~>
+        </ul>
+      </figure>
+    <~
+    }
+    if(!__has){
+    ~>
+      <div class="flexbox middle center no-rooms icofont info">
+        没有房间可用
+      </div>
+    <~
+    }
+    ~>
+    </script>
+    <div class="chatrooms" id="render_channels">
+      <!-- <figure>
+        <figcaption class="flexbox middle justify unfold" data-action-click="chatroom://unfold">
+          <span>通用</span>
+          <i class="icofont"></i>
+        </figcaption>
+        <ul>
+          <li class="flexbox middle justify">
+            <span>SE生活</span>
+            <code class="flexbox middle center exit" data-action-click="chatroom://join#seshenghuo,SE生活,0">加入</code>
+          </li>
+        </ul>
+      </figure> -->
+    </div>
+  </aside>
+  <div class="mainbody">
+    <script type="text/template" id="tpl_tips">
+      <div class="message tips flexbox middle center">
+        <span><~=io.imsgData.tips~></span>
+      </div>  
+    </script>
+    <script type="text/template" id="tpl_message">
+      <div class="message <~=io.body.type~> flexbox top justify<~=io.body.self ? " self horizontal-r" : ""~>">
+        <i class="msg-avator" style="background-image: url(<~=io.head.user.avator~>);"></i>
+        <div class="msg-data">
+          <div class="msg-nickname flexbox middle justify<~=io.body.self ? " horizontal-r" : ""~>">
+            <h2><~=io.body.from~></h2>
+            <time><!--<~=io.body.datetime~>--></time>
+          </div>
+          <div class="msg-content icofont">
+            <~=io.body.data.content~>
+          </div>
+        </div>
+      </div>  
+    </script>
+    <div class="chatroom-message">
+      <div id="render_message">
+        <!-- <div class="message flexbox top justify">
+          <i class="msg-avator"></i>
+          <div class="msg-data">
+            <div class="msg-nickname flexbox middle justify">
+              <h2>小网UU</h2>
+              <time>10分钟前</time>
+            </div>
+            <div class="msg-content">
+              大家好
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="chatroom-footer">
+      <form name="sendMessageForm" action="." method="post">
+        <div class="chatroom-iconbar">
+          
+        </div>
+        <div class="chatroom-input flexbox middle center">
+          <textarea name="textMessage" id="textMessage"></textarea>
+        </div>
+        <div class="chatroom-funcbar flexbox middle right">
+          <button type="button" class="button" data-action-click="chatroom://sendMessage#sendMessageForm">发送</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</article>
+<!--#include virtual="/static/v1.0/inc/js_socket.io.html" -->  
+<!--#include virtual="/static/v1.0/inc/js_common_j.2.x.html" -->  
+<!--#include virtual="/static/v1.0/inc/js_logic_chatroom.html" -->  
+</body>
+</html>
